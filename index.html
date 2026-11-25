@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Win Rate Calculator — Gaming Stats &amp; Goal Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="calculator.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="badge">GAMING WIN RATE TOOL</div>
+      <h1>Win Rate Calculator</h1>
+      <p class="subtitle">
+        Calculate any missing stat from the other two, and see how many wins you need to hit your target win rate.
+      </p>
+    </header>
+
+    <section class="grid">
+      <!-- Card 1: 3-Way Calculator -->
+      <article class="card" aria-labelledby="calc-heading">
+        <div class="card-header">
+          <h2 id="calc-heading">Match Stats</h2>
+          <button type="button" id="reset-btn" class="btn-ghost" title="Clear all inputs">
+            Reset
+          </button>
+        </div>
+
+        <div class="solve-block">
+          <span class="field-label">Calculate</span>
+          <div class="segmented" role="radiogroup" aria-label="Field to calculate">
+            <button
+              type="button"
+              class="seg-btn is-active"
+              data-mode="winRate"
+              role="radio"
+              aria-checked="true"
+            >
+              Win Rate %
+            </button>
+            <button
+              type="button"
+              class="seg-btn"
+              data-mode="matchesWon"
+              role="radio"
+              aria-checked="false"
+            >
+              Won Matches
+            </button>
+            <button
+              type="button"
+              class="seg-btn"
+              data-mode="matchesPlayed"
+              role="radio"
+              aria-checked="false"
+            >
+              Matches Played
+            </button>
+          </div>
+        </div>
+
+        <div class="fields">
+          <div class="field-group" data-field="matchesPlayed">
+            <div class="label-row">
+              <label for="matches-played">Matches Played</label>
+              <span class="calc-tag" hidden>Calculated</span>
+            </div>
+            <input
+              id="matches-played"
+              type="number"
+              min="0"
+              step="1"
+              inputmode="numeric"
+              placeholder="e.g. 100"
+            />
+          </div>
+
+          <div class="field-group" data-field="matchesWon">
+            <div class="label-row">
+              <label for="matches-won">Won Matches</label>
+              <span class="calc-tag" hidden>Calculated</span>
+            </div>
+            <input
+              id="matches-won"
+              type="number"
+              min="0"
+              step="1"
+              inputmode="numeric"
+              placeholder="e.g. 55"
+            />
+          </div>
+
+          <div class="field-group is-output" data-field="winRate">
+            <div class="label-row">
+              <label for="win-rate">Win Rate (%)</label>
+              <span class="calc-tag">Calculated</span>
+            </div>
+            <div class="input-suffix">
+              <input
+                id="win-rate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="e.g. 55"
+                readonly
+              />
+              <span class="suffix" aria-hidden="true">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="session-actions">
+          <span class="session-label">Quick log:</span>
+          <div class="action-buttons">
+            <button type="button" id="add-win-btn" class="btn-chip btn-win">+1 Win</button>
+            <button type="button" id="add-loss-btn" class="btn-chip btn-loss">+1 Loss</button>
+          </div>
+        </div>
+
+        <div id="calc-status" class="status-box" aria-live="polite"></div>
+      </article>
+
+      <!-- Card 2: Target Win Rate Goal -->
+      <article class="card" aria-labelledby="goal-heading">
+        <div class="card-header">
+          <h2 id="goal-heading">Target Win Rate Goal</h2>
+          <span id="goal-context" class="context-pill"></span>
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label for="target-win-rate">Target Win Rate (%)</label>
+          </div>
+          <div class="input-suffix">
+            <input
+              id="target-win-rate"
+              type="number"
+              min="0.01"
+              max="100"
+              step="0.1"
+              inputmode="decimal"
+              placeholder="e.g. 60"
+            />
+            <span class="suffix" aria-hidden="true">%</span>
+          </div>
+        </div>
+
+        <div class="presets" aria-label="Quick target win rate presets">
+          <button type="button" class="preset-chip" data-target="50">50%</button>
+          <button type="button" class="preset-chip" data-target="55">55%</button>
+          <button type="button" class="preset-chip" data-target="60">60%</button>
+          <button type="button" class="preset-chip" data-target="65">65%</button>
+          <button type="button" class="preset-chip" data-target="70">70%</button>
+        </div>
+
+        <div id="goal-result" class="goal-result" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Inputs are saved automatically for this browser session.</span>
+    </footer>
+  </main>
+</body>
+</html>
